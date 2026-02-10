@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사고발생 사이렌 포스터 메이커</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Using Google Fonts for authoritative look -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Input Area -->
+        <aside class="control-panel">
+            <h1>⚠ 사고발생 사이렌<br>메이커</h1>
+            <p class="subtitle">산업안전보건공단 스타일 포스터 제작</p>
+
+            <form id="poster-form">
+                <div class="form-group">
+                    <label>이미지 소스 선택</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="image-source" value="ai" checked> AI 생성 (API)
+                        </label>
+                        <label>
+                            <input type="radio" name="image-source" value="upload"> 직접 업로드
+                        </label>
+                    </div>
+                </div>
+
+                <div id="ai-controls">
+                    <div class="form-group">
+                        <label for="accident-type">사고 유형 (필수)</label>
+                        <select id="accident-type">
+                            <option value="" disabled selected>선택하세요</option>
+                            <option value="fall">추락 (떨어짐)</option>
+                            <option value="caught_in">끼임 (협착)</option>
+                            <option value="collision">충돌 (부딪힘)</option>
+                            <option value="shock">감전</option>
+                            <option value="trip">전도 (넘어짐)</option>
+                            <option value="collapse">붕괴 (무너짐)</option>
+                            <option value="other">기타</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="api-key">OpenAI API Key (DALL·E 3)</label>
+                        <input type="password" id="api-key" placeholder="sk-...">
+                        <small>* 키가 없으면 데모 이미지가 표시됩니다.</small>
+                    </div>
+                </div>
+
+                <div id="upload-controls" class="hidden">
+                    <div class="form-group">
+                        <label for="image-upload">이미지 파일 선택</label>
+                        <input type="file" id="image-upload" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="accident-title">사고 제목</label>
+                    <input type="text" id="accident-title" placeholder="예: 이동식 비계에서 추락" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="accident-desc">사고 개요</label>
+                    <textarea id="accident-desc" rows="4" placeholder="사고 상황을 구체적으로 입력하세요." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-generate">포스터 생성하기</button>
+            </form>
+
+            <div class="status-msg" id="status-msg"></div>
+        </aside>
+
+        <!-- Preview Area -->
+        <main class="preview-area">
+            <div id="poster" class="poster-frame">
+                <!-- Poster Header -->
+                <header class="poster-header">
+                    <div class="warning-icon">🚨</div>
+                    <h2>사고발생 사이렌</h2>
+                    <div class="date" id="poster-date">2024.00.00</div>
+                </header>
+
+                <!-- Poster Body -->
+                <div class="poster-body">
+                    <div class="poster-image-container">
+                        <img id="poster-image" src="assets/placeholder.png" alt="Generated Safety Poster">
+                        <div class="loading-overlay hidden" id="loading-overlay">
+                            <div class="spinner"></div>
+                            <p>이미지 생성 중...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poster Footer / Text Content -->
+                <footer class="poster-footer">
+                    <h1 id="poster-title-display">사고 제목이 여기에 표시됩니다</h1>
+                    <p id="poster-desc-display">사고 개요 및 예방 대책 내용이 여기에 표시됩니다.</p>
+                    <div class="brand-logo">
+                        <div class="logo-text">
+                            <span class="en-name">SHINWON Construction Co.,Ltd.</span>
+                            <span class="kr-name">신원종합개발(주)</span>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+            <div class="action-buttons">
+                <button id="btn-download" disabled>이미지 저장 (준비중)</button>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

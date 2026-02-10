@@ -1,0 +1,327 @@
+:root {
+    --kosha-yellow: #FFD400;
+    /* Safety Yellow - Original */
+    --pastel-blue-bg: #E0F7FA;
+    /* New Pastel Blue for Text */
+    --pastel-cyan-bg: #E1F5FE;
+    --kosha-red: #E60012;
+    /* Danger Red */
+    --kosha-black: #1A1A1A;
+    /* Dark Black */
+    /* Updated background colors based on user image */
+    --brand-cyan: #00A9CE;
+    --brand-blue: #00578A;
+    --muted-red: #A32626;
+    /* New Muted Red for Header */
+    --bg-color: linear-gradient(135deg, #00A9CE 0%, #00578A 100%);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg-color);
+    /* Updated */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    width: 95vw;
+    height: 90vh;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+
+/* Control Panel */
+.control-panel {
+    width: 350px;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.control-panel h1 {
+    font-size: 1.5rem;
+    color: var(--kosha-black);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.btn-generate {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--kosha-red);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-generate:hover {
+    background-color: #c4000f;
+}
+
+/* Preview Area */
+.preview-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+    padding: 2rem;
+}
+
+/* Poster Frame - KOSHA Style */
+.poster-frame {
+    width: 500px;
+    /* A4 Ratio approx */
+    height: 707px;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid #ccc;
+}
+
+/* Header */
+.poster-header {
+    background-color: var(--muted-red);
+    /* Changed from kosha-red */
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.poster-header h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.warning-icon {
+    font-size: 2.5rem;
+}
+
+.date {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Body */
+.poster-body {
+    flex: 1;
+    background-color: #fff;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poster-image-container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    /* Updated from gray to match document style */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#poster-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Updated to show full image */
+}
+
+/* Footer */
+.poster-footer {
+    background-color: var(--pastel-blue-bg);
+    /* Changed from yellow */
+    padding: 2rem;
+    color: var(--kosha-black);
+    position: relative;
+    border-top: 5px solid var(--brand-cyan);
+    /* Added accent line */
+}
+
+.poster-footer h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    word-break: keep-all;
+}
+
+.poster-footer p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.brand-logo {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Simulated Logo Icon using CSS */
+.brand-logo::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-blue) 100%);
+    margin-right: 12px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    /* Simple triangle approx */
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.logo-text .en-name {
+    font-size: 0.7rem;
+    color: #555;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.logo-text .kr-name {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #002855;
+    /* Shinwon Navy */
+    line-height: 1;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ddd;
+    border-top: 4px solid var(--kosha-red);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Radio Group */
+.radio-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+/* Visibility Utilities */
+.hidden {
+    display: none !important;
+}
+
+.action-buttons {
+    margin-top: 1rem;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
