@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 reader.onload = function (e) {
                     posterImage.src = e.target.result;
                     statusMsg.textContent = "이미지가 업로드되었습니다.";
+                    enableDownload();
                 }
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await simulateDelay(1500);
                 setDemoImage(type);
                 statusMsg.textContent = "데모 이미지가 적용되었습니다. (API 키 없음)";
+                enableDownload();
             }
         } catch (error) {
             console.error(error);
@@ -125,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // For a real app, you'd proxy and save this.
         posterImage.src = imageUrl;
         statusMsg.textContent = "이미지가 성공적으로 생성되었습니다!";
+        enableDownload();
     }
 
     function setDemoImage(type) {
@@ -149,4 +152,59 @@ document.addEventListener('DOMContentLoaded', () => {
     function simulateDelay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
+    // --- Download Functionality ---
+    const btnDownload = document.getElementById('btn-download');
+
+    btnDownload.addEventListener('click', async () => {
+        const poster = document.getElementById('poster');
+
+        try {
+            btnDownload.textContent = "이미지 생성 중...";
+            btnDownload.disabled = true;
+
+            const canvas = await html2canvas(poster, {
+                scale: 2, // Higher resolution
+                useCORS: true, // Enable cross-origin for images
+                backgroundColor: null
+            });
+
+            const link = document.createElement('a');
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            link.download = `siren-poster-${timestamp}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            btnDownload.textContent = "이미지 저장 완료!";
+            setTimeout(() => {
+                btnDownload.textContent = "이미지 저장";
+                btnDownload.disabled = false;
+            }, 2000);
+
+        } catch (err) {
+            console.error(err);
+            alert('이미지 저장 중 오류가 발생했습니다: ' + err.message);
+            btnDownload.textContent = "이미지 저장";
+            btnDownload.disabled = false;
+        }
+    });
+
+    // Enable download button when image is ready
+    function enableDownload() {
+        btnDownload.disabled = false;
+    }
+
+    // --- API Key Storage ---
+    const apiKeyInput = document.getElementById('api-key');
+    const savedKey = localStorage.getItem('openai_api_key');
+    if (savedKey) {
+        apiKeyInput.value = savedKey;
+    }
+
+    // Only save valid keys (simple check)
+    apiKeyInput.addEventListener('change', () => {
+        const val = apiKeyInput.value.trim();
+        if (val.startsWith('sk-')) {
+            localStorage.setItem('openai_api_key', val);
+        }
+    });
 });
